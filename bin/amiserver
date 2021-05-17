@@ -21,7 +21,7 @@ const defaultOptions = {
     }
 };
 
-if(argv.help){
+if (argv.help) {
     console.log(`-`.repeat(36));
     console.log(`| asterisk ami test server `.toUpperCase() + `v${meta.version} |`);
     console.log(`-`.repeat(36));
@@ -39,5 +39,8 @@ let options = Object.keys(defaultOptions).reduce((result, key) => {
     return result;
 }, {});
 
-new AmiSurrogateServer(options).listen(options.port)
+new AmiSurrogateServer(options)
+    .on('listening', () => console.log('listening'))
+    // .on('connection', authClientsCount => console.log(`authClientsCount: ${authClientsCount}`))
+    .listen(options.port)
     .catch(error => console.log(error));
